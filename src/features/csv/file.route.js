@@ -15,6 +15,7 @@ const csvfile = new FileController();
 
 // Define routes for handling file-related requests
 fileRouter.get("/", csvfile.homepage); // Route for displaying the homepage
+fileRouter.get("/upload",  csvfile.showfiles);//Route to display the files uploaded
 fileRouter.post("/upload", fileUpload.single("file"), csvfile.fileSaved); // Route for uploading a CSV file
 fileRouter.get("/upload/:filename", csvfile.displayData); // Route for displaying data from a CSV file
 

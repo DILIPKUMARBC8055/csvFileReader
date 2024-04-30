@@ -34,6 +34,12 @@ server.use((err, req, res, next) => {
   }
   next(); // Continue to the next middleware
 });
+//handling other reqestes
+server.use((req, res) => {
+  res.send(
+    "API not found only api are supported is '/','/upload','/upload/filename' for more info on documentation"
+  );
+});
 
 // Start the server
 server.listen(process.env.PORT1, async () => {

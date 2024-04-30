@@ -67,6 +67,22 @@ export default class FileController {
       throw new ApplicationError(error, 500);
     }
   }
+  async showfiles(req, res) {
+    try {
+      fs.readdir(path.join(path.resolve(), "public"), (err, files) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Internal Server Error");
+        } else {
+          // Render the HTML page with the list of file names
+          res.render("listfiles", { files: files });
+        }
+      });
+    } catch (error) {
+      // Handle errors
+      throw new ApplicationError(error, 500);
+    }
+  }
 
   // Method to display data from a CSV file
   async displayData(req, res) {
