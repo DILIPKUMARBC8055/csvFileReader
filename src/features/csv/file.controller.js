@@ -1,21 +1,31 @@
+// Import necessary modules
 import ApplicationError from "../../errorhandling/customerror.error.js";
 import fs from "fs";
 import path from "path";
 import csv from "csv-parser";
+
+// Define FileController class
 export default class FileController {
+  // Method to render the homepage
   async homepage(req, res) {
     try {
       res.render("uploadfile");
     } catch (error) {
+      // Handle errors
       throw new ApplicationError(error, 500);
     }
   }
+
+  // Method to handle file upload
   async fileSaved(req, res) {
     try {
       console.log(req.file.originalname);
+
+      // Check if file exists
       if (!req.file || req.file.length === 0) {
         res.status(400).json({ message: "No files were uploaded" });
       } else {
+        // Read the uploaded file
         fs.readFile(
           path.join(path.resolve(), "public", req.file.originalname.toString()),
           "utf8",
@@ -53,29 +63,30 @@ export default class FileController {
         });
       }
     } catch (error) {
+      // Handle errors
       throw new ApplicationError(error, 500);
     }
   }
+
+  // Method to display data from a CSV file
   async displayData(req, res) {
     try {
+      // Get filename from request parameters
       const filename = req.params.filename;
-
       const results = [];
-      // const data = fs.readFileSync(
-      //  ,
-      //   "utf-8"
-      // );
-      // console.log(data);
 
+      // Read the CSV file and parse data
       fs.createReadStream(
         path.join(path.resolve(), "public", filename.toString())
       )
         .pipe(csv())
         .on("data", (data) => results.push(data))
         .on("end", () => {
+          // Render the HTML page with the data
           res.render("showdata", { data: results });
         });
     } catch (error) {
+      // Handle errors
       throw new ApplicationError(error, 500);
     }
   }
