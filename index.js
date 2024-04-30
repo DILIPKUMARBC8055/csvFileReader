@@ -36,6 +36,6 @@ server.use((err, req, res, next) => {
 });
 
 // Start the server
-server.listen(process.env.PORT, async () => {
-  console.log("Server is listening at the port:" + process.env.PORT); // Log server start message with port number
+server.listen(process.env.PORT1, async () => {
+  console.log("Server is listening at the port:" + process.env.PORT1); // Log server start message with port number
 });
