@@ -1,4 +1,3 @@
-#CSV File Reader
 CSV File Reader is a simple Node.js application that allows users to upload CSV files, parse the data, and display it on a web page.
 
 #Features
