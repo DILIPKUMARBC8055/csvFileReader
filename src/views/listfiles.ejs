@@ -1,0 +1,12 @@
+<div class="container">
+    <h1 class="mt-5 mb-4">Uploaded Files</h1>
+    <ul class="list-group">
+        <% files.forEach(function(file) { %>
+            <a href="upload/<%=file%>">
+                <li class="list-group-item">
+                    <%= file %>
+                </li>
+            </a>
+            <% }); %>
+    </ul>
+</div>

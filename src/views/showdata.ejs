@@ -1,0 +1,72 @@
+<div class="container">
+    <h1 class="mt-5 mb-4">Data</h1>
+    <!-- Search Box -->
+    <input type="text" id="searchInput" class="form-control mb-3" placeholder="Search...">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <% Object.keys(data[0]).forEach(function(key) { %>
+                    <th>
+                        <%= key %>
+                            <!-- Sorting Buttons -->
+                            <button class="btn btn-sm btn-outline-secondary"
+                                onclick="sortTable('<%= key %>')">Sort</button>
+                    </th>
+                    <% }); %>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <% data.forEach(function(item) { %>
+                <tr>
+                    <% Object.values(item).forEach(function(value) { %>
+                        <td>
+                            <%= value %>
+                        </td>
+                        <% }); %>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    let clickcount = 0;
+    // Search Functionality
+    document.getElementById('searchInput').addEventListener('input', function () {
+        var query = this.value.toLowerCase();
+        document.querySelectorAll('#tableBody tr').forEach(function (row) {
+            var found = false;
+            row.querySelectorAll('td').forEach(function (cell) {
+                if (cell.textContent.toLowerCase().indexOf(query) > -1) {
+                    found = true;
+                }
+            });
+            row.style.display = found ? '' : 'none';
+        });
+    });
+
+    // Sorting Functionality
+    function sortTable(columnName) {
+
+        var index = Array.from(document.querySelectorAll('th')).findIndex((th) => {
+            const data = th.textContent.toString().replace("Sort", "");
+
+            return data.trim().toLowerCase() == columnName.trim().toLowerCase();
+        });
+
+        var rows = Array.from(document.querySelectorAll('#tableBody tr'));
+
+        rows.sort(function (a, b) {
+            var aValue = a.children[index] ? a.children[index].textContent.toString().toUpperCase() : '';
+
+            var bValue = b.children[index] ? b.children[index].textContent.toString().toUpperCase() : '';
+            if (clickcount % 2 == 0) { return aValue.localeCompare(bValue); }
+            else {
+                return bValue.localeCompare(aValue);
+            }
+        });
+        clickcount++;
+
+        rows.forEach(row => document.getElementById('tableBody').appendChild(row));
+    }
+</script>

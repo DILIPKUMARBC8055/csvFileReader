@@ -1,0 +1,33 @@
+{
+  "name": "csvdeployproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DILIPKUMARBC8055/csvFileReader.git"
+  },
+  "author": "DILIP KUMAR B C",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DILIPKUMARBC8055/csvFileReader/issues"
+  },
+  "homepage": "https://github.com/DILIPKUMARBC8055/csvFileReader#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "mongoose": "^8.3.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
