@@ -58,13 +58,30 @@
 
         rows.sort(function (a, b) {
             var aValue = a.children[index] ? a.children[index].textContent.toString().toUpperCase() : '';
-
             var bValue = b.children[index] ? b.children[index].textContent.toString().toUpperCase() : '';
-            if (clickcount % 2 == 0) { return aValue.localeCompare(bValue); }
-            else {
-                return bValue.localeCompare(aValue);
+
+            // Check if the values are numbers
+            var aValueIsNumber = !isNaN(parseFloat(aValue)) && isFinite(aValue);
+            var bValueIsNumber = !isNaN(parseFloat(bValue)) && isFinite(bValue);
+
+            // If both values are numbers, compare them as numbers
+            if (aValueIsNumber && bValueIsNumber) {
+                aValue = parseFloat(aValue);
+                bValue = parseFloat(bValue);
+                if (clickcount % 2 === 0) {
+                    return aValue - bValue;
+                } else {
+                    return bValue - aValue;
+                }
+            } else { // If not numbers, compare them as strings
+                if (clickcount % 2 === 0) {
+                    return aValue.localeCompare(bValue);
+                } else {
+                    return bValue.localeCompare(aValue);
+                }
             }
         });
+
         clickcount++;
 
         rows.forEach(row => document.getElementById('tableBody').appendChild(row));
