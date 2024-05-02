@@ -6,7 +6,8 @@
                     <h1 class="card-title">Upload CSV Files</h1>
                     <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
-                            <input class="form-control" type="file" name="file" id="fileInput" accept=".csv" multiple>
+                            <input class="form-control" type="file" name="file" id="fileInput" accept=".csv" multiple
+                                required>
                         </div>
                         <button class="btn btn-primary" type="submit">Upload</button>
                     </form>
