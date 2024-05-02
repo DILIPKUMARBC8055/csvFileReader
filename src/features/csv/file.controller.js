@@ -45,7 +45,9 @@ export default class FileController {
               modifiedData,
               (err) => {
                 if (err) {
-                  return res.status(500).json({ error: "Error writing file" });
+                  return res
+                    .status(500)
+                    .json({ error: "Error in uploading file" });
                 }
               }
             );
@@ -58,7 +60,7 @@ export default class FileController {
             res.status(500).send("Internal Server Error");
           } else {
             // Render the HTML page with the list of file names
-            res.render("listfiles", { files: files });
+            return res.render("listfiles", { files: files });
           }
         });
       }
@@ -100,6 +102,28 @@ export default class FileController {
         .on("end", () => {
           // Render the HTML page with the data
           res.render("showdata", { data: results });
+        });
+    } catch (error) {
+      // Handle errors
+      throw new ApplicationError(error, 500);
+    }
+  }
+
+  async showData(req, res) {
+    try {
+      // Get filename from request parameters
+      const filename = req.params.filename;
+      const results = [];
+
+      // Read the CSV file and parse data
+      fs.createReadStream(
+        path.join(path.resolve(), "public", filename.toString())
+      )
+        .pipe(csv())
+        .on("data", (data) => results.push(data))
+        .on("end", () => {
+          // Render the HTML page with the data
+          res.status(200).json(results);
         });
     } catch (error) {
       // Handle errors

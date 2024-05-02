@@ -18,6 +18,7 @@ fileRouter.get("/", csvfile.homepage); // Route for displaying the homepage
 fileRouter.get("/upload",  csvfile.showfiles);//Route to display the files uploaded
 fileRouter.post("/upload", fileUpload.single("file"), csvfile.fileSaved); // Route for uploading a CSV file
 fileRouter.get("/upload/:filename", csvfile.displayData); // Route for displaying data from a CSV file
+fileRouter.get("/uploads/:filename",  csvfile.showData);
 
 // Export the fileRouter for use in other modules
 export default fileRouter;
